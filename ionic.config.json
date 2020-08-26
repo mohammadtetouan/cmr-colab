@@ -1,0 +1,8 @@
+{
+  "name": "CMR",
+  "type": "angular",
+  "integrations": {
+    "cordova": {},
+    "capacitor": {}
+  }
+}

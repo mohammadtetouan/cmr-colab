@@ -1,0 +1,198 @@
+
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>  Syncronisation des donn&eacute;es</ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="primary"(click)="saveFilesToServer()">
+        <ion-icon name="sync-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+
+
+
+<ion-list #scheduleList>
+  <ion-progress-bar *ngIf="saveFilesToServerLoder || saveFilesToLocalLoder || startDataDownloading || startLayersDownloading"type="indeterminate" reversed="false"></ion-progress-bar>
+
+  
+  <ion-item-group >
+      <ion-item-divider sticky>
+        <ion-label class="listheader">
+          enregistrements
+        </ion-label>
+      </ion-item-divider>
+
+      <ion-item-sliding  *ngFor="let group of recordsToUpload; let i = index" #slidingItem [attr.track]="colors[i] | lowercase">
+        <ion-item>
+          <ion-label>
+            <h3>{{group?.layer_name}}</h3>
+            <p>
+              info 
+            </p>
+            <p>
+               {{today | date:'mm:ss'}}
+            </p>
+          </ion-label>
+
+          <ion-icon name="cloud-outline"  *ngIf="group.isnew"></ion-icon>
+          <ion-icon name="cloud-done-outline" color="success" *ngIf="!group.isnew"></ion-icon>
+
+          <!--<ion-buttons slot="end">
+            <ion-button>
+              <ion-icon name="cloud-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>-->
+        </ion-item>
+        <ion-item-options>
+          <ion-item-option color="favorite" (click)="editeRecord(group, i)">
+            modifier
+          </ion-item-option>
+          <ion-item-option color="danger" (click)="removeRecord(i)">
+            supprimer
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-item-group>
+  </ion-list>
+
+  <ion-list-header [hidden]="recordsToUpload.length > 0">
+    Aucun enregistrement trouvé
+  </ion-list-header>
+
+
+
+
+
+
+
+
+
+
+<!--
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>
+        <span class="labelTitle">
+        <ion-icon name="cloud-download"></ion-icon>
+        Importation des données depuis le serveur distant
+        </span>
+      </ion-label>
+    </ion-list-header>
+      <ion-item>
+        <ion-buttons >
+            <ion-button expande="block"fill="solid" [disabled]="startDataDownloading" (click)="setLayersData()" color="success">
+              <div *ngIf="!startDataDownloading">
+                <ion-icon name="list-outline"></ion-icon>
+              </div>
+              <div *ngIf="startDataDownloading">
+                <ion-spinner  name="bubbles"></ion-spinner>
+              </div>
+              <ion-label *ngIf="startDataDownloading" class="bold">loading...</ion-label>
+              <ion-label *ngIf="!startDataDownloading" class="bold">Donn&eacute;es</ion-label>
+            </ion-button>
+            <ion-button expande="block" [disabled]="startLayersDownloading"
+                                        (click)="setLayers()" fill="solid">
+              <div *ngIf="startLayersDownloading">
+                <ion-spinner  name="bubbles"></ion-spinner>
+              </div>
+              <div *ngIf="!startLayersDownloading">
+                <ion-icon name="layers-outline"></ion-icon>
+              </div>
+              <ion-label *ngIf="!startLayersDownloading" >Couches</ion-label>
+              <ion-label *ngIf="startLayersDownloading" >loading...</ion-label>
+            </ion-button >
+        </ion-buttons>
+        
+      </ion-item>
+      <ion-item>
+        <ion-buttons >
+          <ion-button   class="btn-floating blue btn-small tooltipped" fill="solid" data-tooltip="Rafraîchir">
+            <ion-icon name="refresh-outline"></ion-icon>
+          </ion-button >
+          <ion-button   fill="solid" color="warning" data-tooltip="Vider">
+              <ion-icon name="close-circle-outline"></ion-icon>
+          </ion-button >
+          <ion-button  onclick="syncr.sendData('send')" fill="solid" class="btn-floating  m-b-10 btn-small tooltipped" color="success" data-tooltip="Envoyer">
+            <ion-icon name="send-outline"></ion-icon>
+          </ion-button >
+        </ion-buttons>
+      </ion-item>
+    <ion-list-header>
+      <ion-label>
+        <span class="labelTitle">
+        <ion-icon name="cloud-upload"></ion-icon>
+        Sauvegarde des données en local
+        </span>
+      </ion-label>
+    </ion-list-header>
+      <ion-item>
+        <ion-row>
+          <ion-col size="8"><small>Sauvegarder l'ensemble de vos données en local pour une
+            consultation ult&eacute;rieure</small></ion-col>
+          <ion-col size="4">
+            <ion-fab-button [disabled]="saveFilesToLocalLoder" 
+                     (click)="saveFilesToLocal()" >
+                    
+                      <div *ngIf="saveFilesToLocalLoder">
+                        <ion-spinner  name="bubbles"></ion-spinner>
+                      </div>
+                      <div *ngIf="!saveFilesToLocalLoder">
+                        <ion-icon size="large" name="save-outline"> </ion-icon>
+                      </div>
+            </ion-fab-button>
+          </ion-col> 
+        </ion-row>
+      </ion-item>
+
+    <ion-list-header>
+      <ion-label>
+        <span class="labelTitle">
+        <ion-icon name="cloud-upload"></ion-icon>
+        Envoi des données au serveur
+        </span>
+      </ion-label>
+    </ion-list-header>
+      <ion-item>
+        <ion-row>
+          <ion-col size="8" *ngIf="recordsToUpload?.length">
+            <small class="records"> <b>{{recordsToUpload.length}} </b> enregistrements pour charger au serveur</small>
+          </ion-col>
+          <ion-col size="8">
+            <small>Sauvegarder l'ensemble de vos données sur le serveur distant</small>
+          </ion-col>
+          <ion-col size="4">
+            <ion-fab-button [disabled]="saveFilesToServerLoder" 
+                     (click)="saveFilesToServer()" >
+                    
+                      <div *ngIf="saveFilesToServerLoder">
+                        <ion-spinner  name="bubbles"></ion-spinner>
+                      </div>
+                      <div *ngIf="!saveFilesToServerLoder">
+                        <ion-icon size="large" name="save-outline"> </ion-icon>
+                      </div>
+            </ion-fab-button>
+          </ion-col> 
+        </ion-row>
+      </ion-item>
+
+
+      
+  </ion-list>
+-->
+
+</ion-content>
+
+
+
+
+
+
+
+

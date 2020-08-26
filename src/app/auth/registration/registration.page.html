@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    </ion-buttons>
+    <ion-title>S'inscrire</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+
+  <ion-row>
+      <ion-col> 
+          <img src="./assets/imgs/login/youtube-bg-660x330.jpg">
+      </ion-col> 
+  </ion-row>
+  <br>
+  <!--<br>
+  <h1 class="title">S'inscrire</h1>
+  <br>
+  <br>-->
+
+  <form #formm="ngForm">   
+    <ion-item lines="full">
+      <ion-label position="floating">Nom Complet</ion-label>
+      <ion-input type="text" #username [required]="'true'"  [name]="'username'"  [(ngModel)]="registerForm.username" (ionChange)="inputChanged()"></ion-input>
+    </ion-item>  
+    <ion-item lines="full">
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="text" #email [required]="'true'" [name]="'email'"  [(ngModel)]="registerForm.email" (ionChange)="inputChanged()"></ion-input>
+    </ion-item> 
+
+    <ion-item lines="full">
+      <ion-label position="floating">Mot de passe</ion-label>
+      <ion-input type="password" #password [required]="'true'"  [name]="'password'"  [(ngModel)]="registerForm.password"(ionChange)="inputChanged()"></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="floating">Confirmez le mot de passe</ion-label>
+      <ion-input type="password" #passwordConfirme [required]="'true'" [name]="'passwordConfirme'"  [(ngModel)]="registerForm.passwordConfirme" (ionChange)="inputChanged()"></ion-input>
+    </ion-item>
+    <ion-row [hidden] = "!mismatch">
+      <ion-col > 
+        <ion-button color="danger" fill="clear" expand="block">
+            les mots de passe ne correspondent pas
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row [hidden] = "!serverError">
+      <ion-col > 
+        <p>
+          <ion-text color="danger">
+            une erreur s'est produite, assurez-vous d'avoir entré les informations correctes ou réessayez plus tard
+          </ion-text> 
+        </p>
+      </ion-col>
+    </ion-row>
+    <br>
+    <br>
+    <br>  
+    <ion-row>
+      <ion-col> 
+      <ion-button  [disabled]="(!formm.valid)" (click)="signUp(username, email, password, passwordConfirme)" expand="block">S'inscrire</ion-button>
+      </ion-col>
+    </ion-row>
+    <br>
+    <br>
+    <br>
+    <ion-row>
+      <ion-buttons>
+        <ion-button  type="submit"  color="primary" (click)="login()" fill="clear" expand="full">Vous avez déjà un compte</ion-button>
+      </ion-buttons>
+    </ion-row>
+    <br>
+    <br>
+    <!--<ion-row>
+      <ion-col> 
+        <ion-button fill="outline" [routerLink]="'/app/tabs/map'" expand="block">
+          pas maintenant
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>-->
+  </form>
+</ion-content>

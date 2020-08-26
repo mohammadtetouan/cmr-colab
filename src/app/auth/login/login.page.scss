@@ -1,0 +1,45 @@
+.login-logo {
+  padding: 20px 0;
+  min-height: 200px;
+  text-align: center;
+  --background: url("~/assets/imgs/login/back.jpg");
+      
+}
+
+.login-logo img {
+  max-width: 150px;
+}
+
+.list {
+  margin-bottom: 0;
+}
+
+
+ion-content {
+  --background: #fff url("~/assets/imgs/login/back.jpg") no-repeat cover;
+}
+ion-content {
+  --background: #fff url("~/assets/imgs/login/back.jpg") no-repeat cover;
+}
+
+
+ion-content {
+  --padding-start: 10px;
+  --padding-end: 10px;
+  --padding-top: 30px;
+}
+.title{
+  margin: calc(var(--page-margin) * 3);
+  text-align: center;
+  // font-size: 14px;
+  text-decoration: none;
+  text-transform: capitalize;
+  // color: var(--ion-color-secondary);
+  // font-style: oblique;
+  // color: #000090;
+
+  color: #000090;
+  font-family: Monospace; 
+  font-weight: bolder;
+
+}

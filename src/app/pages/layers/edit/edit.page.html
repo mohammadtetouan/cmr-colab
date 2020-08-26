@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Fermer</ion-button>
+
+    </ion-buttons>
+    <ion-title>Éditer un élément</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="formContent">
+<!-- Default Segment -->
+<ion-segment (ionChange)="segmentChanged($event)">
+  <ion-segment-button value="Infos">
+    <ion-label>Infos</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="Situation">
+    <ion-label>Situation</ion-label>
+  </ion-segment-button>
+</ion-segment>
+<section [hidden]="segmentValue !== 'Infos'">
+
+  <form #form="ngForm"  id="formElement">
+  </form>
+  <form #formm="ngForm" id="form2">
+      
+      <ion-item class="bgcolor nocolor selectDiv">
+        <ion-label position="floating" color="primary" >Couche</ion-label>
+        <ion-input [type]="'text'" disabled="true" [value]="layer.name"></ion-input>
+        <ion-icon size="large" slot="end" name="albums-outline"></ion-icon>
+      </ion-item>
+
+    <ion-list class="inputs-list" lines="full">
+
+      <ion-item *ngFor="let item of formItems"> 
+        <ion-label position="floating" color="primary" >{{item.label}}</ion-label>
+        <ion-input [type]="item.type"  [name]="item.label" class="form-control" [(ngModel)]="item.value" [required]="item.required" [value]="item.value"></ion-input>
+        <ion-note *ngIf="!item.required" slot="end" color="medium">optionnel</ion-note>
+        <ion-note *ngIf="item.required" slot="end" color="danger">Obligatoire</ion-note>
+
+      </ion-item>
+
+    </ion-list>
+  </form>
+
+  
+</section>
+
+<section [hidden]="segmentValue !== 'Situation'">
+  <!--<div id="mapElement" class="full-width sidebar-map"  style="width:100%;    height:500px;"></div>-->
+
+  <ion-toolbar color="primary">
+    <ion-buttons slot="end">
+      <ion-button (click)="editMap()">Modifier la carte</ion-button>
+      <ion-icon name="create"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+  <script src="index.js"></script>
+  <div *ngIf="spinner">
+          <ion-progress-bar type="indeterminate"></ion-progress-bar>
+
+  </div>
+
+  <div id="mapElement" class="full-width sidebar-map"  style="width:100%;    height:500px;">
+  </div>
+</section>
+
+    <div class="row">
+      <ion-button expand="block" color="primary" (click)="onSubmit()"
+       [disabled]="!formm.valid"
+      >enregistrer</ion-button>
+    </div>
+
+</ion-content>

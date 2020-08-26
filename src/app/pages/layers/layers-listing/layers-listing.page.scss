@@ -1,0 +1,27 @@
+.empty-list-message {
+    margin: calc(var(--page-margin) * 3);
+    color: rgba(var(--ion-color-dark-rgb), 0.4);
+    text-align: center;
+  }
+
+  .bgcolor {
+    background: #cdcfd6;
+  }
+  
+  .nocolor {
+    border: 2px solid #aeb7ca;
+  }
+  // .row-table{
+  //   margin: inherit;
+  // }
+  .row-table {
+    background: #fff;
+    border-radius: 2px;
+    display: inline-block;
+    margin: 1rem;
+    position: relative;
+  }
+  .selectDiv{
+    margin: 1rem;
+    position: relative;
+  }

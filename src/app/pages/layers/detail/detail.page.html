@@ -1,0 +1,69 @@
+<!--
+<ion-header>
+  <ion-toolbar>
+    <ion-title color="primary">{{layer.name}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Fermer</ion-button>
+
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+  
+  <ion-list class="inputs-list" lines="full">
+    <ion-list-header>
+      <ion-label  color="primary">{{layer.name}}</ion-label>
+    </ion-list-header>
+    <div *ngFor="let item of formItems;let i=index">
+      <ion-item *ngIf="item?.value?.length" [lines]=" (i + 1) == formItems.length ? 'none' : 'inset'">  
+        <ion-label>
+          <h3>{{item.label}}</h3>
+          <p> {{item.value}}</p>
+        </ion-label>
+      </ion-item>
+    </div>
+  </ion-list>
+  <br> <br> <br> 
+  <ion-footer class="ion-no-border" translucent="true">
+  <ion-toolbar>
+        <ion-button shape="round"  expand="block"     fill="outline" color="secondary" (click)="EditLayerRecord('row')">
+          <ion-label >
+            Edite
+          </ion-label>
+          <ion-icon slot="end" name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button shape="round"  expand="block"      fill="outline" (click)="deleteRecord('row')" color="danger"> 
+          <ion-label>
+            Supprimer
+          </ion-label>
+          <ion-icon  slot="end" name="close-circle-outline"></ion-icon>
+        </ion-button>                       
+  </ion-toolbar>
+  </ion-footer>
+</ion-content>
+
+-->
+<ion-list class="inputs-list" lines="full">
+  <ion-list-header>
+    <ion-label  color="primary">{{layer.name}}</ion-label>
+  </ion-list-header>
+  <div *ngFor="let item of formItems;let i=index">
+    <ion-item *ngIf="item?.value?.length" [lines]=" (i + 1) == formItems.length ? 'none' : 'inset'">  
+      <ion-label>
+        <h3>{{item.label}}</h3>
+        <p> {{item.value}}</p>
+      </ion-label>
+    </ion-item>
+  </div>
+</ion-list>
+<ion-buttons>
+  <ion-button shape="round"    fill="clear" color="medium" (click)="EditLayerRecord()">
+    <ion-icon size="large"name="create-outline"></ion-icon>
+    <!--<ion-label >Éditer</ion-label>-->
+  </ion-button>
+  <ion-button shape="round"     fill="clear" (click)="deleteRecord()" color="medium"> 
+    <ion-icon size="large" name="close-circle-outline"></ion-icon>
+  </ion-button >
+</ion-buttons>
+<br> 

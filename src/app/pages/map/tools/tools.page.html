@@ -1,0 +1,98 @@
+<!--<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+    </ion-buttons>
+    <ion-title>Outils</ion-title>
+    <ion-buttons slot="end">
+      <ion-button  fill="clear" (click)="dismiss()">
+        <ion-label>
+          rejeter
+        </ion-label>
+      </ion-button>
+    </ion-buttons >
+  </ion-toolbar>
+</ion-header>-->
+
+<!--<ion-content>
+  <ion-row class="sidebar-pane" id="layers">
+    <ion-label>
+      <h1 class="sidebar-header">Gestion des couches<span class="sidebar-close"><i
+        class="fas fa-caret-left"></i></span></h1>
+    </ion-label>
+  </ion-row>
+  <ion-row>
+      <ion-label class="labelTitle">
+        <i class="fa fa-map"></i> &nbsp;TYPE DE LA CARTE
+      </ion-label>
+  </ion-row>
+
+    <ion-row style="align-content: center">
+
+      <ion-button type="button" id="display-1"    (click)="activeLayer(0)"style="width: 66px; height: 80px;align-content: center" color="light">
+        <ion-row class="ion-justify-content-center">
+          <ion-img src="./assets/imgs/outils/1.png" style="width: 50px; height: 50px;"></ion-img>
+          <ion-label style="margin-top: 10px">Défaut</ion-label>
+        </ion-row>
+      </ion-button>
+      <ion-button type="button" id="display-2" (click)="activeLayer(1)"        style="width: 66px; height: 80px;align-content: center" color="light">
+        <ion-row class="ion-justify-content-center">
+          <ion-img src="./assets/imgs/outils/2.png" style="width: 50px; height: 50px;"></ion-img>
+          <ion-label style="margin-top: 10px">Satellite</ion-label>
+        </ion-row>
+      </ion-button>
+      
+    </ion-row>
+    <br>
+   
+</ion-content>-->
+
+<!--<ion-row class="sidebar-pane" id="layers">
+    <ion-label>
+      <h1 class="sidebar-header">Gestion des couches<span class="sidebar-close"><i
+        class="fas fa-caret-left"></i></span></h1>
+    </ion-label>
+  </ion-row>
+  <ion-row>
+      <ion-label class="labelTitle">
+        <i class="fa fa-map"></i> &nbsp;TYPE DE LA CARTE
+      </ion-label>
+  </ion-row>
+
+    <ion-row style="align-content: center">
+
+      <ion-button type="button" id="display-1"    (click)="activeLayer(0)"style="width: 66px; height: 80px;align-content: center" color="light">
+        <ion-row class="ion-justify-content-center">
+          <ion-img src="./assets/imgs/outils/1.png" style="width: 50px; height: 50px;"></ion-img>
+          <ion-label style="margin-top: 10px">Défaut</ion-label>
+        </ion-row>
+      </ion-button>
+      <ion-button type="button" id="display-2" (click)="activeLayer(1)"        style="width: 66px; height: 80px;align-content: center" color="light">
+        <ion-row class="ion-justify-content-center">
+          <ion-img src="./assets/imgs/outils/2.png" style="width: 50px; height: 50px;"></ion-img>
+          <ion-label style="margin-top: 10px">Satellite</ion-label>
+        </ion-row>
+      </ion-button>
+    </ion-row>-->
+
+<ion-list>
+  <div id ="layerSwitcher"></div>
+
+  <ion-list-header>
+    <ion-label>Type de catre</ion-label>
+  </ion-list-header>
+    <ion-item (click)="activeLayer(0)">
+      <ion-thumbnail slot="start">
+        <ion-img [src]="'./assets/imgs/outils/1.png'"></ion-img>
+      </ion-thumbnail>
+      <ion-label>Défaut</ion-label>
+    </ion-item>
+    <ion-item (click)="activeLayer(1)">
+      <ion-thumbnail slot="start">
+        <ion-img [src]="'./assets/imgs/outils/2.png'"></ion-img>
+      </ion-thumbnail>
+      <ion-label>Satellite</ion-label>
+    </ion-item>
+    <br>
+    <br>
+
+</ion-list>

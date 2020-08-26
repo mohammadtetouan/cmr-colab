@@ -1,0 +1,137 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Liste des couches</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-progress-bar *ngIf="startDataDownloading || startLayersDownloading"type="indeterminate" reversed="false"></ion-progress-bar>
+
+  <ion-grid>
+    <ion-row class="bgcolor nocolor selectDiv">
+      <ion-select *ngIf="layers?.length" placeholder="Sélectionnez un couche" (ionChange)="onCityChange($event)">
+        <ion-select-option [value]="layer.id" *ngFor="let layer of layers">{{layer.name}}</ion-select-option>
+      </ion-select>
+    </ion-row>
+    <ion-row selectDiv>
+      <ion-searchbar mode="ios" [(ngModel)]="searchText"  placeholder="recherche sur les enregistrements de couches"  showCancelButton="focus"></ion-searchbar>
+
+    </ion-row>
+  </ion-grid>
+  
+  
+<!--
+  <div style="overflow-x:auto;">
+   <div class="row-table" >
+        <table id="myTable">
+            <thead>
+            <tr>
+                <th scope="col"  *ngIf="cols?.length" class="bgcolor nocolor">
+                  <ion-grid>
+                    <ion-row>
+                        <ion-col  text-center>Actions</ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </th>
+
+                <th  class="bgcolor nocolor" *ngFor="let value of cols"  scope="col">
+                  <ion-grid>
+                    <ion-row>
+                        <ion-col text-center>{{value['alias']}}</ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let row of news  | filter : searchText : 'donnees' : 'ETAT'">
+                <td  class="nocolor">
+                  <ion-row>
+                    <ion-col>
+                      <ion-buttons>
+                        <ion-button shape="round"    fill="clear" color="primary" (click)="itineraire(row['shapeastext'])">
+                          <ion-icon size="large"name="location-outline"></ion-icon>
+                        </ion-button>
+                        <ion-button shape="round"    fill="clear" color="secondary" (click)="EditLayerRecord(row)">
+                          <ion-icon size="large"name="create-outline"></ion-icon>
+                        </ion-button>
+                        <ion-button shape="round"     fill="clear" (click)="deleteRecord(row)" color="danger"> 
+                          <ion-icon size="large" name="close-circle-outline"></ion-icon>
+                        </ion-button >
+                         <ion-chip *ngIf="row['local']" color="warning">
+                          <ion-label>Nouvelle</ion-label>
+                        </ion-chip>
+                      </ion-buttons>
+                    </ion-col>
+                  </ion-row>
+                  <ion-row>
+                  </ion-row>
+                </td>
+                <td class="nocolor"*ngFor="let column of cols" scope="row">
+                  <ion-grid>
+                    <ion-row  >
+                        <ion-col  text-center> {{(row['donnees'])[column['name']]}}</ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+        <ion-grid *ngIf="!(news?.length) && selectedLayer">
+            <ion-row>
+              <ion-label color="primary">  <ion-icon name="information-circle-outline"></ion-icon>Aucun enregistrement n'est associ&eacute; à la
+                couche selectionn&eacute;e!</ion-label>
+            </ion-row>
+        </ion-grid>
+        <ion-grid *ngIf="!(news?.length) && !selectedLayer">
+            <ion-row>
+              <ion-label color="primary"> 
+                <ion-icon name="information-circle-outline"></ion-icon>
+                  Aucun couche n'a été sélectionné!
+                </ion-label>
+            </ion-row>
+        </ion-grid>
+    </div>
+  </div>
+-->
+
+
+<ngx-datatable class="material" [rows]="news   | filter : searchText : 'donnees' : 'ETAT'" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+  [rowHeight]="50"  [scrollbarV]="false"   [scrollbarH]="true"[sorts]="[{prop: 'name', dir: 'desc'}]">
+  <ngx-datatable-column [name]="'Actions'">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+        <ion-chip *ngIf="row['local']" color="warning">
+          <ion-label>Nouvelle</ion-label>
+        </ion-chip>
+      <ion-buttons>
+        <ion-button shape="round"    fill="clear" color="medium" (click)="itineraire(row['shapeastext'])">
+          <ion-icon size="small"name="location-outline"></ion-icon>
+        </ion-button> 
+        <ion-button shape="round"    fill="clear" color="medium" (click)="EditLayerRecord(row)">
+        <ion-icon size="small"name="create-outline"></ion-icon>
+      </ion-button> 
+      <ion-button shape="round"     fill="clear" (click)="deleteRecord(row)" color="medium"> 
+        <ion-icon size="small" name="close-circle-outline"></ion-icon>
+      </ion-button >
+      </ion-buttons>
+    </ng-template>
+  </ngx-datatable-column>
+  
+  <ngx-datatable-column *ngFor="let column of cols" [name]="column['alias']">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{(row['donnees'])[column['name']]}}
+    </ng-template>
+  </ngx-datatable-column>
+
+</ngx-datatable>
+  
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button  (click)="AddLayerRecord()">
+      <ion-icon name="add-circle-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

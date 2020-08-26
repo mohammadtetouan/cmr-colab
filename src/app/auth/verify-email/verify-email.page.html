@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Renvoyer l'e-mail de vérification</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <h2 class="title">Renvoyer l'e-mail de vérification</h2>
+      
+    </ion-row>
+    <br>
+      <br>
+      <br>
+     <ion-row>
+      <ion-col>
+        <ion-button class ="buttonVer" type="submit" (click)="authService.SendVerificationMail()" expand="block">
+          renvoyer l'e-mail de vérification
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <br>
+      <br>
+      <br>
+    <ion-row>
+      <ion-col>
+        <ion-button  type="submit" (click)="login()" fill="clear" expand="full">se connecter</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button type="submit" (click)="register()" fill="clear" expand="full">S'inscrire</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

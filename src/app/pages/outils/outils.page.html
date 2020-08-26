@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Paramètres</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+      Compte
+    </ion-list-header>
+      <ion-item *ngIf="!this.authService.isLoggedIn" [routerLink]="'/registration'" routerLinkActive="selected" routerDirection="root" detail="false">
+        <ion-icon slot="start" name="person-add-outline"></ion-icon>
+        <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+
+        <ion-label>
+          Créer un compte
+        </ion-label>
+      </ion-item>
+      <ion-item *ngIf="!this.authService.isLoggedIn" [routerLink]="'/login'" routerLinkActive="selected" routerDirection="root" detail="false">
+        <ion-icon slot="start" name="log-in-outline"></ion-icon>
+        <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+
+        <ion-label>
+          Se connecter
+        </ion-label>
+      </ion-item>
+
+      <ion-item *ngIf="this.authService.isLoggedIn" (click)="profile(profile)">
+        <ion-icon slot="start" name="person-outline"></ion-icon>
+        <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+
+        <ion-label>
+          Mon profil
+        </ion-label>
+      </ion-item>
+      <ion-item *ngIf="this.authService.isLoggedIn" (click)="authService.SignOut()">
+        <ion-icon slot="start"  name="log-out-outline"></ion-icon>
+        <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+
+        <ion-label>
+          Se déconnecter
+        </ion-label>
+      </ion-item>
+
+    <ion-list-header>
+      Autre
+    </ion-list-header>
+      <ion-item >
+          <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+          <ion-icon slot="start" name="book-outline"></ion-icon>
+        <ion-label>
+          Comment utiliser
+        </ion-label>
+      </ion-item>
+      <ion-item (click)="about()">
+        <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+        <ion-icon slot="start" name="information-circle-outline"></ion-icon>
+        <ion-label>
+          A propos
+        </ion-label>
+      </ion-item>
+  </ion-list>
+
+</ion-content>

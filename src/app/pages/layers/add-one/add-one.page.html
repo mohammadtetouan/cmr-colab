@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">rejeter</ion-button>
+
+    </ion-buttons>
+    <ion-title>Ajouter un nouvel élément</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="formContent">
+<!-- Default Segment -->
+<ion-segment (ionChange)="segmentChanged($event)">
+  <ion-segment-button value="Infos">
+    <ion-icon src="./assets/icons/generic/information-circle-outline.svg"></ion-icon>
+    <ion-label>Info</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="Situation">
+    <ion-icon name="map-outline"></ion-icon>
+    <ion-label>Situation</ion-label>
+  </ion-segment-button>
+</ion-segment>
+<section [hidden]="segmentValue !== 'Infos'">
+
+  <form method="post"  (ngSubmit)="onSubmit()"  id="formElement">
+    <!--<ion-button class="submit-btn"expand="full" color="light" >save</ion-button>-->
+
+    
+  </form>
+  <form #formm="ngForm" id="form2">
+    <ion-row class="bgcolor nocolor selectDiv">
+      <ion-select *ngIf="layers?.length" placeholder="Sélectionnez un couche" (ionChange)="onLayerChange($event)">
+        <ion-select-option [value]="layer.id" *ngFor="let layer of layers">{{layer.name}}</ion-select-option>
+      </ion-select>
+    </ion-row>
+    <ion-list class="inputs-list" lines="full">
+
+      <ion-item *ngFor="let item of formItems"> 
+        <ion-label position="floating" color="primary" >{{item.label}}<ion-note *ngIf="item.required" slot="end" color="danger">*</ion-note></ion-label>
+        <ion-input [placeholder]=" item.required ? 'obligatoire': ''" [type]="item.type"  [name]="item.label" class="form-control" [(ngModel)]="item.value" [required]="item.required" [value]="item.value"></ion-input>
+      </ion-item>
+    </ion-list>
+  </form>
+</section>
+
+<section [hidden]="segmentValue !== 'Situation'">
+  <script src="index.js"></script>
+  <div *ngIf="spinner">
+          <ion-progress-bar type="indeterminate"></ion-progress-bar>
+
+  </div>
+
+  <div id="mapElement" class="full-width sidebar-map"  style="width:100%;    height:500px;">
+  </div>
+
+</section>
+
+<div class="row" *ngIf="layer?.name">
+      <ion-button expand="full" [disabled]="!formm.valid" color="primary" (click)="onSubmit()">enregistrer</ion-button>
+  </div>
+</ion-content>
